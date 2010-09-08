@@ -15,7 +15,7 @@ describe Sheet do
     end
   end
 
-  context "when value stores in cell" do
+  context "when value stores in cells" do
     before do
       @sheet = Sheet.new
     end
@@ -34,6 +34,18 @@ describe Sheet do
             
       verify_value_of_cell_is_stored(cell, stored_value)
       verify_value_of_cell_is_stored(cell, new_stored_value)
+    end
+    
+    it "should return value of each cell" do
+      cells = {
+        :A1 => "First",
+        :X27 => "Second",
+        :ZX901 => "Third"
+      }
+
+      cells.each do |cell, value|
+        verify_value_of_cell_is_stored(cell, value)  
+      end
     end
     
     def verify_value_of_cell_is_stored(cell, stored_value)      
