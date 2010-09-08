@@ -4,17 +4,19 @@ require 'lib/sheet'
 
 describe Sheet do
   
-  it "should return empty for empty cell" do
-    empty_cell_1 = "A1"
-    empty_cell_2 = "ZX347"
+  it "should return empty for empty cell" do    
+    empty_cells = ["A1", "ZX347"]
     
-    default_empty_cell_value = ""    
+    verify_empty_cell_value(empty_cells[0])
+    verify_empty_cell_value(empty_cells[1])
+  end
+  
+  def verify_empty_cell_value(cell)
+    default_empty_cell_value = ""
     sheet = Sheet.new
     
-    value_1 = sheet.get empty_cell_1
-    value_2 = sheet.get empty_cell_2
-    
-    value_1.should == default_empty_cell_value
-    value_2.should == default_empty_cell_value
+    value = sheet.get cell
+      
+    value.should == default_empty_cell_value
   end
 end
