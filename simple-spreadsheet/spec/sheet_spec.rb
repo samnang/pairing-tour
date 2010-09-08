@@ -19,4 +19,14 @@ describe Sheet do
       
     value.should == default_empty_cell_value
   end
+  
+  it "should return value of the cell is stored" do
+    cell = "A21"
+    sheet = Sheet.new
+    sheet.put(cell, "A string")
+    
+    value = sheet.get cell
+    
+    value.should == "A string"
+  end
 end
