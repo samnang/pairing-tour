@@ -39,13 +39,29 @@ describe Sheet do
     it "should return value of each cell" do
       cells = {
         :A1 => "First",
-        :X27 => "Second",
-        :ZX901 => "Third"
+        :X27 => "Second"
       }
 
       cells.each do |cell, value|
         verify_value_of_cell_is_stored(cell, value)  
       end
+    end
+    
+    it "should return ignored blank value of given numeric value" do
+      cell = "A1"
+      numeric_value = " 1234 "
+      expected_value = "1234"
+      @sheet.put(cell, numeric_value)
+      
+      another_cell = "A2"      
+      non_numeric_value = " 99 X"      
+      @sheet.put(another_cell, non_numeric_value)
+      
+      result_numeric_value = @sheet.get cell
+      result_non_numeric_value = @sheet.get cell
+      
+      result_numeric_value.should == expected_value          
+      result_non_numeric_value.should_not == "99 X"                  
     end
     
     def verify_value_of_cell_is_stored(cell, stored_value)      
